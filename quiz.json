@@ -1,0 +1,203 @@
+[
+    {
+        "title": "The report concerning the sales figures that you requested ______ on your desk.",
+        "options": [
+            "is",
+            "am",
+            "are",
+            "were"
+        ],
+        "answer": 1
+    },
+    {
+        "title": "The ______ company owners always dress appropriately when they need to attend business events and meetings.",
+        "options": [
+            "succession",
+            "success",
+            "succeed",
+            "successful"
+        ],
+        "answer": 4
+    },
+    {
+        "title": "Before _____ us your resume, be sure to check that it meets our requirements precisely.",
+        "options": [
+            "sends",
+            "to send",
+            "sending",
+            "sent"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "There were some discussions _____ the shareholders as to whether the CEO was competently operating the business.",
+        "options": [
+            "at",
+            "on",
+            "between",
+            "among"
+        ],
+        "answer": 4
+    },
+    {
+        "title": "During the factory tour, visitors must not ____ with any of the operations inside the plant.",
+        "options": [
+            "comply",
+            "attain",
+            "observe",
+            "interface"
+        ],
+        "answer": 4
+    },
+    {
+        "title": "The passenger was asked to place ____ luggage in the overhead compartments after boarding the plane.",
+        "options": [
+            "her",
+            "she",
+            "herself",
+            "hers"
+        ],
+        "answer": 1
+    },
+    {
+        "title": "It is vital that the accuracy of measuring instruments _____ yearly.",
+        "options": [
+            "is tested",
+            "were testing",
+            "will test",
+            "be tested"
+        ],
+        "answer": 4
+    },
+    {
+        "title": "Check that the lid is _____ sealed to prevent its contents from leaking.",
+        "options": [
+            "firm",
+            "firmly",
+            "firming",
+            "firmness"
+        ],
+        "answer": 2
+    },
+    {
+        "title": "By the time she concludes her assignment overseas on May 15, Ms. Relei ____ over one hundred production facilities.",
+        "options": [
+            "would inspect",
+            "will have inspected",
+            "is inspecting",
+            "will be inspected"
+        ],
+        "answer": 2
+    },
+    {
+        "title": "Mark will handle receptionist duties ____ a more urgent matter requires his attention.",
+        "options": [
+            "since",
+            "so",
+            "unless",
+            "because"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "Housing prices in the city are ----- more expensive than those in the suburb.",
+        "options": [
+            "personally",
+            "unanumously",
+            "substantially",
+            "individually"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "----- the logos had a remarkably similar design, they were created by two different companies.",
+        "options": [
+            "Although",
+            "Since",
+            "However",
+            "Because of"
+        ],
+        "answer": 1
+    },
+    {
+        "title": "The most important rule to prevent your T-Shirts from ----- is to avoid heat.",
+        "options": [
+            "shrink",
+            "shrank",
+            "shrinking",
+            "shrunk"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "After a 3-hour meeting, the board of directors decided to ----- our contract with Marcy Construction.",
+        "options": [
+            "attend",
+            "donate",
+            "terminate",
+            "benefit"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "Patient records ----- with “Confidential” in red ink are subject to stronger protection measures.",
+        "options": [
+            "are stamped",
+            "stamps",
+            "stamped",
+            "stamping"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "----- hotels charge a fee for cancellation within 24 hours of check-in, but the Fresia Hotel does not.",
+        "options": [
+            "Another",
+            "Other",
+            "Others",
+            "Each"
+        ],
+        "answer": 2
+    },
+    {
+        "title": "Upon examination, Mr. Clark discovered that the figures Ms. Rose ----- last week were incorrect.",
+        "options": [
+            "calculate",
+            "calculated",
+            "has been calculated",
+            "will calculate"
+        ],
+        "answer": 2
+    },
+    {
+        "title": "The manuscript ----- to the publisher was considered a possible best-seller due to its appealing plot and charming characters",
+        "options": [
+            "submitting",
+            "is submitted",
+            "to submit",
+            "submitted"
+        ],
+        "answer": 4
+    },
+    {
+        "title": "Records of all ------ between the landlord and the tenants should be kept on record.",
+        "options": [
+            "opposition",
+            "instruction",
+            "correspondence",
+            "substitution"
+        ],
+        "answer": 3
+    },
+    {
+        "title": "The European Union is made up of 15 nations with ------- cultural, linguistic and economic roots.",
+        "options": [
+            "distinct",
+            "unclear",
+            "tentative",
+            "widespread"
+        ],
+        "answer": 1
+    }
+]
+
