@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work 2</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@3.7.4/dist/vuetify.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.4/dist/vuetify.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@500;700&family=Mali:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .mali-regular {
+  font-family: "Mali", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mali-medium {
+  font-family: "Mali", cursive;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.mali-bold {
+  font-family: "Mali", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="d-flex justify-center">
+            <h1 class=" text-uppercase text-deep-purple-darken-1 mt-2">Quiz App</h1>
+            <img src="./image/logo2.svg" alt="logo" width="34">
+        </div>
+        <quiz></quiz>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        const { createVuetify } = Vuetify;
+
+        const Quiz = {
+            template: `
+                <div class="ma-6">
+                    <v-card class="mx-auto my-8" elevation="16" max-width="544" color="deep-purple-lighten-1"
+                        label="deep-purple-lighten-1" value="deep-purple-lighten-1" variant="elevated"
+                        v-if="!showScore && currentQuestion" outlined>
+                        <v-card-text class="text-h6 mali-bold">{{ currentQuestion.title }}</v-card-text>
+                        <v-card-text class="mali-medium">
+                            <v-radio-group v-model="answers[currentIndex]">
+                                <v-radio v-for="(option, index) in currentQuestion.options" :key="index" 
+                                    :label="option" :value="index + 1" />
+                            </v-radio-group>
+                        </v-card-text>
+                        <v-card-actions class="d-flex justify-md-space-between mali-medium">
+                            <v-btn :disabled="currentIndex === 0" @click="currentIndex--">กลับไปข้อที่แล้ว</v-btn>
+                            <v-btn v-if="currentIndex < questions.length - 1" @click="currentIndex++">ไปข้อถัดไป</v-btn>
+                            <v-btn v-else @click="checkAnswers">ตรวจคำตอบ</v-btn>
+                        </v-card-actions>
+                    </v-card>
+
+                    <v-card v-else-if="showScore" color="deep-purple-lighten-1" label="deep-purple-lighten-1" 
+                        value="deep-purple-lighten-1" variant="elevated" class="mx-auto mt-8 py-8" elevation="16" max-width="544">
+                        <v-card-item class="text-center mali-bold">
+                            <div>
+                                <div class="text-overline mb-1">{{ variant }}</div>
+                                <div class="text-h5 mb-1">คะแนนของคุณ</div>
+                                <div class="text-h6">{{ score }} / {{ questions.length }}</div>
+                            </div>
+                        </v-card-item>
+                    </v-card>
+                </div>
+            `,
+            data() {
+                return {
+                    questions: [],
+                    currentIndex: 0,
+                    answers: [],
+                    score: 0,
+                    showScore: false,
+                };
+            },
+            computed: {
+                currentQuestion() {
+                    return this.questions.length > 0 ? this.questions[this.currentIndex] : null;
+                },
+            },
+            methods: {
+                async fetchQuestions() {
+                    try {
+                        const response = await fetch("/quiz2.json");
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        this.questions = await response.json();
+                        this.answers = Array(this.questions.length).fill(null);
+                    } catch (error) {
+                        console.error("Error loading quiz data:", error);
+                    }
+                },
+                checkAnswers() {
+                    if (this.answers.includes(null)) {
+                        alert("กรุณาตอบคำถามให้ครบทุกข้อ");
+                        return;
+                    }
+                    this.score = this.answers.reduce((score, answer, index) => {
+                        return score + (answer === this.questions[index].answer ? 1 : 0);
+                    }, 0);
+                    this.showScore = true;
+                },
+            },
+            mounted() {
+                this.fetchQuestions();
+            },
+        };
+
+        // สร้าง Vuetify
+        const vuetify = createVuetify();
+
+        // สร้าง Vue App
+        const app = createApp({
+            data() {
+                return {
+                    message: "Hello",
+                };
+            },
+        });
+
+        // ลงทะเบียน Quiz Component
+        app.component('quiz', Quiz);
+
+        // ใช้ Vuetify และ Mount App
+        app.use(vuetify).mount('#app');
+    </script>
+
+</body>
+
+</html>
