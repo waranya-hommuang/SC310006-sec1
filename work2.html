@@ -96,38 +96,36 @@
                 },
             },
             methods: {
-                async fetchQuestions() {
-                    try {
-                        const response = await fetch("/quiz2.json");
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        this.questions = await response.json();
-                        this.answers = Array(this.questions.length).fill(null);
-                    } catch (error) {
-                        console.error("Error loading quiz data:", error);
-                    }
-                },
-                checkAnswers() {
-                    if (this.answers.includes(null)) {
-                        alert("กรุณาตอบคำถามให้ครบทุกข้อ");
-                        return;
-                    }
-                    this.score = this.answers.reduce((score, answer, index) => {
-                        return score + (answer === this.questions[index].answer ? 1 : 0);
-                    }, 0);
-                    this.showScore = true;
-                },
-            },
+    async fetchQuestions() {
+        try {
+            const basePath = window.location.pathname.replace(/\/$/, "");
+            const response = await fetch(`${basePath}/quiz2.json`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            this.questions = await response.json();
+            this.answers = Array(this.questions.length).fill(null);
+        } catch (error) {
+            console.error("Error loading quiz data:", error);
+        }
+    },
+    checkAnswers() {
+        if (this.answers.includes(null)) {
+            alert("กรุณาตอบคำถามให้ครบทุกข้อ");
+            return;
+        }
+        this.score = this.answers.reduce((score, answer, index) => {
+            return score + (answer === this.questions[index].answer ? 1 : 0);
+        }, 0);
+        this.showScore = true;
+    },
+},
             mounted() {
                 this.fetchQuestions();
             },
         };
-
-        // สร้าง Vuetify
         const vuetify = createVuetify();
 
-        // สร้าง Vue App
         const app = createApp({
             data() {
                 return {
@@ -135,11 +133,8 @@
                 };
             },
         });
-
-        // ลงทะเบียน Quiz Component
         app.component('quiz', Quiz);
 
-        // ใช้ Vuetify และ Mount App
         app.use(vuetify).mount('#app');
     </script>
 
