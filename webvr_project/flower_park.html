@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Park</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.2/dist/aframe-extras.min.js"></script>
+    <style>
+        #modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #modal img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        #modal p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        #close-btn {
+            background: #615cfc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #close-btn:hover {
+            background: #c9c7ff;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <img id="platform" src="assets/grass3.jpg">
+            <a-asset-item id="dome" src="assets/glass_dome.glb"></a-asset-item>
+            <a-asset-item id="gardenS1" src="assets/gardenS1.glb"></a-asset-item>
+            <a-asset-item id="gardenS2" src="assets/gardenS2.glb"></a-asset-item>
+            <a-asset-item id="gardenS2_1" src="assets/gardenS2_1.glb"></a-asset-item>
+            <a-asset-item id="gardenS3" src="assets/gardenS3.glb"></a-asset-item>
+            <a-asset-item id="gardenSun" src="assets/gardenSun.glb"></a-asset-item>
+            <img id="sign" src="assets/bgsign.jpg">
+            <audio id="bgsound" src="assets/jungle-nature.mp3"></audio>
+        </a-assets>
+
+        <a-entity sound="src: #bgsound; autoplay: true; spositional: false;">
+        </a-entity>
+
+
+        <a-camera position="0 2 5" look-controls>
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-plane src="#sign" height="0.5" width="1.5" position="18 1.5 -4" rotation="0 0 0"
+            text="value: Hydrangea; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Hydrangea"
+            data-description="ไฮเดรนเยีย (Hydrangea) เป็นสกุลของพืชมีดอก 70-75 ชนิดที่เป็นพืชพื้นเมืองในเอเชียใต้และเอเชียตะวันออก (จีน ญี่ปุ่น คาบสมุทรเกาหลี เทือกเขาหิมาลัย อินโดนีเซีย) อเมริกาเหนือ และอเมริกาใต้ ความหลากหลายส่วนใหญ่อยู่ในทวีปเอเชีย โดยเฉพาะจีน ญี่ปุ่น คาบสมุทรเกาหลี"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="15 1.5 1.8" rotation="0 180 0"
+            text="value: Jasmine; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Jasmine"
+            data-description="มะลิ (Jasmine) เป็นไม้พุ่มหรือไม้เถาในวงศ์มะลิ มีประมาณ 200 ชนิด มีถิ่นกำเนิดในพื้นที่เขตร้อนและกึ่งเขตร้อนในแถบทวีปยุโรป เอเชีย และแอฟริกา ลักษณะดอกและกลิ่นมีความแตกต่างกันไปตามแต่ละชนิดหรือพันธุ์ เป็นดอกที่มีดอกหอม สีขาว เป็นที่นิยมในการนำมาใช้ในงานพิธีต่าง ๆ และการสกัดน้ำมันหอม"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="1.7 1.5 -11" rotation="0 -90 0"
+            text="value: Lavender; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Lavender"
+            data-description="ลาเวนเดอร์ (Lavandula) เป็นสกุลของพืชดอก จากการรายงานในปัจจุบันมีทั้งหมด 41 ชนิด ในวงศ์กะเพรา,วงศ์มินต์ (Lamiaceae) เป็นพืชพื้นเมืองในยุคโบราณซึ่งถูกค้นพบจากเคปเวิร์ดและหมู่เกาะคานารี ทางตอนใต้ของยุโรปข้ามไปทางตะวันออกเฉียงเหนือของแอฟริกา เมดิเตอร์เรเนียน เอเชียตะวันตกเฉียงใต้จรดไปอินเดียตะวันออกเฉียงใต้ ถูกนำมาใช้อย่างกว้างขวางกับสมุนไพรและน้ำมันหอมระเหย"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="-1.8 1.5 -14" rotation="0 90 0"
+            text="value: Tulip; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Tulip"
+            data-description="ทิวลิป (Tulip) เป็นดอกไม้เมืองหนาวที่เป็นสัญลักษณ์ของฮอลแลนด์ มีอยู่หลายสี ดอกทิวลิปจะปลูกได้ต้องใช้อุณหภูมิที่เหมาะสม คือไม่เกิน 25 องศาเซลเซียส"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="-12 1.5 -2" rotation="0 0 0"
+            text="value: Rose; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Rose"
+            data-description="กุหลาบ (Rose) คือดอกไม้ในสกุล Rosa ในวงศ์ Rosaceae ที่ได้รับความนิยมปลูกมากที่สุดชนิดหนึ่งของโลกที่มีต้นกำเนิดจากทวีปเอเชีย ผู้คนนิยมปลูกเพื่อความสวยงาม ตกแต่งสวน, ประดับตกแต่งบ้าน, ประดับสถานที่, ปลูกเพื่อการพาณิชย์ อาทิ เพื่อนำไปสกัดน้ำหอม นำไปทำเป็นส่วนประกอบของสปา เป็นต้น"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="-14.5 1.5 1.8" rotation="0 180 0"
+            text="value: Sunflower; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Sunflower"
+            data-description="ทานตะวัน มีชื่อตามภาษาถิ่นพายัพว่า บัวผัด เป็นพืชปีเดียว (annual plant) อยู่ในวงศ์ Asteraceae มีฐานรองกลุ่มดอก (inflorescence) ขนาดใหญ่ ลำต้นโตได้สูงถึง 3 เมตร ฐานรองกลีบดอกอาจกว้างได้ถึง 30 เซนติเมตร 
+            ทานตะวันเป็นพืชท้องถิ่นของอเมริกากลาง ทานตะวันเป็นพืชให้น้ำมันโดยสกัดจากเมล็ด น้ำมันดอกทานตะวันมีกรดไขมันไม่อิ่มตัวสูงสามารถนำไปใช้ในการฟอกหนังและประกอบอาหาร"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="-2 1 15" rotation="0 90 0"
+            text="value: Daisy; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Daisy"
+            data-description="เดซี่ (Daisy) เป็นสายพันธุ์ยุโรปของวงศ์ Asteraceae มักถือเป็นสายพันธุ์ต้นแบบของเดซี่ เป็นไม้ล้มลุกยืนต้นที่มีความสูงได้ถึง 20 เซนติเมตรมีเหง้าที่เลื้อยสั้นและใบรูปดอกกุหลาบขนาดเล็กที่โค้งมนหรือเป็นรูปช้อนยาว 2-5 เซนติเมตรและเติบโตราบเรียบกับพื้น"></a-plane>
+
+        <a-plane src="#sign" height="0.5" width="1" position="2 1.5 13" rotation="0 -90 0"
+            text="value: Daffodil; align: center; color: #000000; wrapCount: 15; width: 2;" class="clickable"
+            data-flower="Daffodil"
+            data-description="แดฟโฟดิล (Daffodil) นาร์ซิสซัส ซูโดนาร์ซิสซัสหรือที่เรียกกันทั่วไปว่าดอกแดฟโฟดิลป่าหรือลิลลี่เลนต์ (เวลส์ : Cennin Pedr ) เป็นไม้ดอกยืนต้น สายพันธุ์นี้มี กลีบดอกสีเหลืองอ่อนโดยมีแตรตรงกลางสีเข้มกว่าใบ เรียวยาว มีสีเขียวอมเทาเล็กน้อยและสูงขึ้นจากโคนต้น พืชเติบโตจากหัวดอกไม้จะผลิตเมล็ดซึ่งเมื่องอกแล้วจะใช้เวลาห้าถึงเจ็ดปีจึงจะผลิตต้นดอกได้"></a-plane>
+
+
+        <a-circle src="#platform" radius="50" rotation="-90 0 0"></a-circle>
+        <a-entity gltf-model="#dome" modify-materials scale="3.2 3.2 3.2"></a-entity>
+        <a-entity gltf-model="#gardenS1" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
+        <a-entity gltf-model="#gardenS2" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
+        <a-entity gltf-model="#gardenS2_1" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
+        <a-entity gltf-model="#gardenS3" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
+        <a-entity gltf-model="#gardenSun" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
+    </a-scene>
+    
+    <!-- Modal -->
+    <div id="overlay"></div>
+    <div id="modal">
+        <p id="modal-description"></p>
+        <button id="close-btn">ปิด</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const planes = document.querySelectorAll('.clickable');
+            const modal = document.getElementById('modal');
+            const overlay = document.getElementById('overlay');
+            const closeBtn = document.getElementById('close-btn');
+            const modalDescription = document.getElementById('modal-description');
+
+            planes.forEach(plane => {
+                plane.addEventListener('click', () => {
+                    const flower = plane.getAttribute('data-flower');
+                    const description = plane.getAttribute('data-description');
+
+                    modalDescription.textContent = description;
+
+                    modal.style.display = 'block';
+                    overlay.style.display = 'block';
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            overlay.addEventListener('click', () => {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>
