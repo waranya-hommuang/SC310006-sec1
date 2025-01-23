@@ -55,6 +55,69 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
+
+        #toggle-sound-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 2px solid #4CAF50;
+            color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #toggle-sound-btn:hover {
+            background-color: #4CAF50;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        #toggle-sound-btn::before {
+            content: '🔊';
+            font-size: 20px;
+        }
+
+        #toggle-sound-btn.muted::before {
+            content: '🔇';
+        }
+
+        #modal {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        #close-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        #close-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        #overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 
@@ -72,8 +135,17 @@
             <audio id="bgsound" src="assets/jungle-nature.mp3"></audio>
         </a-assets>
 
-        <a-entity sound="src: #bgsound; autoplay: true; spositional: false;">
-        </a-entity>
+        <a-entity 
+        sound="src: #bgsound; 
+               autoplay: true; 
+               positional: true; 
+               volume: 1; 
+               rolloffFactor: 0.1; 
+               maxDistance: 100; 
+               refDistance: 1; 
+               loop: true" 
+        position="0 2 0">
+    </a-entity>
 
 
         <a-camera position="0 2 5" look-controls>
@@ -130,7 +202,7 @@
         <a-entity gltf-model="#gardenS3" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
         <a-entity gltf-model="#gardenSun" modify-materials scale="1.5 1.5 1.5" position=""></a-entity>
     </a-scene>
-    
+
     <!-- Modal -->
     <div id="overlay"></div>
     <div id="modal">
@@ -144,6 +216,30 @@
             const overlay = document.getElementById('overlay');
             const closeBtn = document.getElementById('close-btn');
             const modalDescription = document.getElementById('modal-description');
+
+            const soundEntity = document.querySelector('a-entity[sound]');
+            const toggleSoundButton = document.createElement('button');
+            toggleSoundButton.textContent = 'ปิดเสียง';
+            toggleSoundButton.id = 'toggle-sound-btn';
+            toggleSoundButton.style.position = 'fixed';
+            toggleSoundButton.style.top = '10px';
+            toggleSoundButton.style.right = '10px';
+            toggleSoundButton.style.zIndex = '1000';
+
+            let isSoundPlaying = true;
+            toggleSoundButton.addEventListener('click', () => {
+                if (isSoundPlaying) {
+                    soundEntity.components.sound.pauseSound();
+                    toggleSoundButton.textContent = 'เปิดเสียง';
+                    isSoundPlaying = false;
+                } else {
+                    soundEntity.components.sound.playSound();
+                    toggleSoundButton.textContent = 'ปิดเสียง';
+                    isSoundPlaying = true;
+                }
+            });
+
+            document.body.appendChild(toggleSoundButton);
 
             planes.forEach(plane => {
                 plane.addEventListener('click', () => {
@@ -167,6 +263,18 @@
                 overlay.style.display = 'none';
             });
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const soundEntity = document.querySelector('a-entity[sound]');
+    const mainCamera = document.querySelector('a-camera');
+
+    mainCamera.addEventListener('componentchanged', function(evt) {
+        if (evt.detail.name === 'position') {
+            const cameraPosition = mainCamera.getAttribute('position');
+            soundEntity.setAttribute('position', cameraPosition);
+        }
+    });
+});
     </script>
 </body>
 
